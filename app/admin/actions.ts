@@ -1,6 +1,5 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { safeTheme } from "@/lib/themes";
@@ -45,18 +44,14 @@ export async function saveProfile(form: FormData): Promise<Result> {
   let theme: unknown = {};
   try { socials = JSON.parse(text(form, "socials") || "[]"); theme = JSON.parse(text(form, "theme") || "{}"); }
   catch { return { error: "Dados de tema ou redes sociais inválidos." }; }
-  const { data: previous } = await supabase.from("profiles").select("username").eq("id", user.id).maybeSingle();
   const { error } = await supabase.from("profiles").upsert({ id: user.id, username, display_name: displayName, bio, avatar_url: avatar ? safeUrl(avatar) : null, favicon_url: favicon ? safeUrl(favicon) : null, verified: form.get("verified") === "on", theme: safeTheme(theme), socials: safeSocials(socials) });
   if (error) return { error: error.code === "23505" ? "Este usuário já está em uso." : error.message };
-  revalidatePath("/admin");
-  revalidatePath(`/${username}`);
-  if (previous?.username && previous.username !== username) revalidatePath(`/${previous.username}`);
   return { ok: true };
 }
 
 export async function saveLink(form: FormData): Promise<Result> {
   const { supabase, user } = await owner();
-  const { data: profile } = await supabase.from("profiles").select("username").eq("id", user.id).maybeSingle();
+  const { data: profile } = await supabase.from("profiles").select("id").eq("id", user.id).maybeSingle();
   if (!profile) return { error: "Salve o perfil antes de criar links." };
   const title = text(form, "title");
   const url = safeUrl(text(form, "url"));
@@ -77,16 +72,13 @@ export async function saveLink(form: FormData): Promise<Result> {
     const { error } = await supabase.from("links").insert({ ...payload, user_id: user.id, position: (last?.position ?? -1) + 1 });
     if (error) return { error: error.message };
   }
-  revalidatePath("/admin"); revalidatePath(`/${profile.username}`);
   return { ok: true };
 }
 
 export async function deleteLink(id: string): Promise<Result> {
   const { supabase, user } = await owner();
-  const { data: profile } = await supabase.from("profiles").select("username").eq("id", user.id).maybeSingle();
   const { error } = await supabase.from("links").delete().eq("id", id).eq("user_id", user.id);
   if (error) return { error: error.message };
-  revalidatePath("/admin"); if (profile) revalidatePath(`/${profile.username}`);
   return { ok: true };
 }
 
@@ -94,7 +86,5 @@ export async function reorderLinks(ids: string[]): Promise<Result> {
   const { supabase, user } = await owner();
   const { error } = await supabase.rpc("set_link_order", { p_ids: ids });
   if (error) return { error: error.message };
-  const { data: profile } = await supabase.from("profiles").select("username").eq("id", user.id).maybeSingle();
-  revalidatePath("/admin"); if (profile) revalidatePath(`/${profile.username}`);
   return { ok: true };
 }

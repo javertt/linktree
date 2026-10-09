@@ -1,21 +1,20 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { cache } from "react";
 import { PublicProfile } from "@/components/public-profile";
 import { createPublicClient } from "@/lib/supabase/server";
 import type { Profile, Link } from "@/lib/types";
 
-export const revalidate = 60;
-export const fetchCache = "force-cache";
-export async function generateStaticParams(): Promise<{ username: string }[]> { return []; }
+export const dynamic = "force-dynamic";
 
-async function getProfile(username: string) {
+const getProfile = cache(async (username: string) => {
   if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) return null;
   const supabase = createPublicClient();
   const { data: profile } = await supabase.from("profiles").select("*").eq("username", username).maybeSingle();
   if (!profile) return null;
   const { data: links } = await supabase.from("links").select("*").eq("user_id", profile.id).order("position", { ascending: true }).order("created_at", { ascending: true });
   return { profile: profile as Profile, links: (links ?? []) as Link[] };
-}
+});
 
 export async function generateMetadata({ params }: { params: Promise<{ username: string }> }): Promise<Metadata> {
   const { username } = await params;

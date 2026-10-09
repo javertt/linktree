@@ -9,10 +9,10 @@ Plataforma de links para criadores com estética pop cult. Cada usuário autenti
 | Interface | Next.js 15 (App Router), React 19, TypeScript, Tailwind CSS | Páginas públicas e painel |
 | Interação | Framer Motion, Lucide React, dnd-kit | Animações, ícones e ordenação |
 | Dados e login | Supabase PostgreSQL, Auth, Storage, RLS | Persistência, login e políticas por usuário |
-| Hospedagem | Cloudflare Workers, OpenNext, R2 | Execução full stack e cache ISR |
+| Hospedagem | Cloudflare Workers, OpenNext | Execução full stack sem R2 ou Durable Objects |
 | CI/CD | Cloudflare Workers Builds + GitHub | Deploy a cada push na branch de produção |
 
-O perfil público usa Server Components e revalidação de 60 segundos. O painel usa cookies de sessão, middleware para rotas privadas e Server Actions para alterações. `GET /go/{id}` contabiliza o clique antes de redirecionar. `POST /api/view/{username}` registra uma visualização por navegador/perfil a cada 30 minutos. A localização é o código de país informado pela Cloudflare, e o dispositivo é inferido do User-Agent; IPs não são salvos. CTR = cliques ÷ visualizações.
+O perfil público usa Server Components e consulta o Supabase a cada visita para mostrar dados atualizados sem cache persistente. O painel usa cookies de sessão, middleware para rotas privadas e Server Actions para alterações. `GET /go/{id}` contabiliza o clique antes de redirecionar. `POST /api/view/{username}` registra uma visualização por navegador/perfil a cada 30 minutos. A localização é o código de país informado pela Cloudflare, e o dispositivo é inferido do User-Agent; IPs não são salvos. CTR = cliques ÷ visualizações.
 
 ### Estrutura
 
@@ -21,7 +21,7 @@ app/                  Rotas públicas, login, painel, ações e endpoints
 components/           Cards, perfil e componentes do painel
 lib/                  Tipos, temas, validação e clientes Supabase
 supabase/schema.sql   Tabelas, índices, políticas RLS, funções e Storage
-wrangler.jsonc        Worker, assets, cache R2 e fila de revalidação
+wrangler.jsonc        Worker e assets estáticos
 open-next.config.ts   Adaptador Next.js → Cloudflare
 ```
 
@@ -63,15 +63,14 @@ O SQL permite leitura pública de perfis e de links ativos dentro do período ag
 **Por que Workers?** A [documentação atual da Cloudflare para Next.js em Pages](https://developers.cloudflare.com/pages/framework-guides/nextjs/) indica Pages para exportação estática e Workers para aplicações full stack com Server Components, autenticação e rotas de servidor. O antigo `@cloudflare/next-on-pages` foi [descontinuado](https://github.com/cloudflare/next-on-pages). Este projeto usa [OpenNext para Workers](https://opennext.js.org/cloudflare/get-started); um deploy estático em Pages não executaria o painel e os endpoints.
 
 1. Crie um repositório GitHub e envie este projeto. Não envie `.env.local`.
-2. Ative R2 na conta Cloudflare e crie o bucket `popcult-links-cache` (Dashboard → R2 → Create bucket), ou execute `npx wrangler r2 bucket create popcult-links-cache`. O nome deve coincidir com `wrangler.jsonc`.
-3. No Dashboard Cloudflare, abra **Workers & Pages → Create application → Import a repository**, autorize GitHub e escolha o repositório. Selecione **Workers**.
-4. Confirme que o nome do Worker é `popcult-links`, igual ao campo `name` de `wrangler.jsonc`, ou ajuste ambos `name` e `services[0].service` para o nome escolhido.
-5. Em **Settings → Builds**, use **Build command** `npm run build` e **Deploy command** `npx wrangler deploy`. O script `build` gera o artefato OpenNext exigido pelo Worker; `next build` sozinho não é suficiente. Use Node.js 20+ no ambiente de build. A branch de produção deve ser a desejada (por exemplo, `main`).
-6. Em **Settings → Variables and Secrets**, adicione `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` e `NEXT_PUBLIC_SITE_URL` com a URL final do Worker ou domínio personalizado. Como variáveis `NEXT_PUBLIC_*` são incorporadas ao bundle, também as configure no ambiente de **build**, caso o painel as separe entre build e runtime.
-7. Faça o primeiro deploy. Em Supabase **Authentication → URL Configuration**, ajuste **Site URL** para a URL publicada. O projeto usa e-mail/senha, então não exige callback OAuth.
-8. Abra a URL publicada, entre em `/admin/login`, salve o perfil e confira `/{username}`. Novos pushes na branch configurada disparam build e deploy automáticos pelo [Workers Builds](https://developers.cloudflare.com/workers/ci-cd/builds/git-integration/).
+2. No Dashboard Cloudflare, abra **Workers & Pages → Create application → Import a repository**, autorize GitHub e escolha o repositório. Selecione **Workers**.
+3. Confirme que o nome do Worker é `popcult-links`, igual ao campo `name` de `wrangler.jsonc`, ou ajuste esse campo para o nome escolhido.
+4. Em **Settings → Builds**, use **Build command** `npm run build` e **Deploy command** `npx wrangler deploy`. O script `build` gera o artefato OpenNext exigido pelo Worker; `next build` sozinho não é suficiente. Use Node.js 20+ no ambiente de build. A branch de produção deve ser a desejada (por exemplo, `main`).
+5. Em **Settings → Variables and Secrets**, adicione `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` e `NEXT_PUBLIC_SITE_URL` com a URL final do Worker ou domínio personalizado. Como variáveis `NEXT_PUBLIC_*` são incorporadas ao bundle, também as configure no ambiente de **build**, caso o painel as separe entre build e runtime.
+6. Faça o primeiro deploy. Em Supabase **Authentication → URL Configuration**, ajuste **Site URL** para a URL publicada. O projeto usa e-mail/senha, então não exige callback OAuth.
+7. Abra a URL publicada, entre em `/admin/login`, salve o perfil e confira `/{username}`. Novos pushes na branch configurada disparam build e deploy automáticos pelo [Workers Builds](https://developers.cloudflare.com/workers/ci-cd/builds/git-integration/).
 
-O perfil público usa ISR com cache R2 e fila Durable Objects. Alterações podem levar até 60 segundos para aparecerem em todas as regiões. Os Server Actions também chamam `revalidatePath`; para invalidação imediata global em produção, adicione um cache de tags D1 conforme a [documentação de cache do OpenNext](https://opennext.js.org/cloudflare/caching). Em desenvolvimento, `npm run dev` usa o runtime Next.js; `npm run cf:build` e `npm run cf:preview` verificam o Worker. O bucket R2 é necessário no deploy.
+O perfil público é renderizado sob demanda. Alterações salvas no Supabase ficam disponíveis na próxima visita, sem esperar revalidação de cache. Cada visita faz leituras ao Supabase e conta para os limites do plano utilizado. Em desenvolvimento, `npm run dev` usa o runtime Next.js; `npm run cf:build` e `npm run cf:preview` verificam o Worker. Esta configuração não requer R2 nem Durable Objects.
 
 ## Comandos úteis
 
