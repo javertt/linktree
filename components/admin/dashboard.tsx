@@ -38,7 +38,7 @@ function LinkEditor({ link, onClose, onSaved, report }: { link: Link | null; onC
     </form></div></div>;
 }
 
-export function AdminDashboard({ userId, email, profile, links: initialLinks, summary }: { userId: string; email: string; profile: Profile | null; links: Link[]; summary: Summary }) {
+export function AdminDashboard({ userId, email, profile, links: initialLinks, summary, supabaseUrl, supabaseAnonKey }: { userId: string; email: string; profile: Profile | null; links: Link[]; summary: Summary; supabaseUrl: string; supabaseAnonKey: string }) {
   const router = useRouter();
   const [tab, setTab] = useState<Tab>(profile ? "overview" : "appearance");
   const [links, setLinks] = useState(initialLinks);
@@ -66,7 +66,7 @@ export function AdminDashboard({ userId, email, profile, links: initialLinks, su
     if (!file.type.startsWith("image/") || !["image/png", "image/jpeg", "image/webp"].includes(file.type) || file.size > 5 * 1024 * 1024) { setNotice("Use PNG, JPG ou WebP de até 5 MB."); return; }
     const ext = file.type === "image/png" ? "png" : file.type === "image/webp" ? "webp" : "jpg";
     const path = `${userId}/${kind}-${Date.now()}.${ext}`;
-    const supabase = createClient();
+    const supabase = createClient(supabaseUrl, supabaseAnonKey);
     const { error } = await supabase.storage.from("profile-assets").upload(path, file, { contentType: file.type });
     if (error) { setNotice(error.message); return; }
     const { data } = supabase.storage.from("profile-assets").getPublicUrl(path);
