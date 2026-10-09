@@ -1,7 +1,17 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { ArrowUpRight, AudioLines, Orbit, Sparkles } from "lucide-react";
+import { createPublicClient } from "@/lib/supabase/server";
 
-export default function Home() {
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  const runtimeEnv = process.env;
+  if (runtimeEnv.NEXT_PUBLIC_SUPABASE_URL && runtimeEnv.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    const supabase = createPublicClient();
+    const { data: profile } = await supabase.from("profiles").select("username").order("created_at", { ascending: true }).limit(1).maybeSingle();
+    if (profile?.username) redirect(`/${encodeURIComponent(profile.username)}`);
+  }
   return <main className="landing-shell">
     <div className="ambient ambient-a" /><div className="ambient ambient-b" />
     <nav className="landing-nav"><div className="brand"><Orbit size={24} /><span>popcult<span className="brand-accent">.links</span></span></div><Link className="nav-link" href="/admin">Abrir painel <ArrowUpRight size={16} /></Link></nav>
