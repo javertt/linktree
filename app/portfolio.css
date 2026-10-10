@@ -1,6 +1,8 @@
 .portfolio-projects {
   margin-top: 38px;
 }
+.portfolio-projects .portfolio-project-card + .portfolio-project-card { margin-top: 14px; }
+.portfolio-project-netbalancer { --profile-accent: #68e2c2; }
 
 .portfolio-project-card {
   padding: 23px;
