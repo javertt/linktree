@@ -14,6 +14,10 @@ Plataforma de links para criadores com estética pop cult. Cada usuário autenti
 
 O endereço principal `/` redireciona para o perfil cadastrado no Supabase. O perfil público usa Server Components e consulta o Supabase a cada visita para mostrar dados atualizados sem cache persistente. O painel usa cookies de sessão, middleware para rotas privadas e Server Actions para alterações. `GET /go/{id}` contabiliza o clique antes de redirecionar. `POST /api/view/{username}` registra uma visualização por navegador/perfil a cada 30 minutos. A localização é o código de país informado pela Cloudflare, e o dispositivo é inferido do User-Agent; IPs não são salvos. CTR = cliques ÷ visualizações.
 
+### Portfólio
+
+O perfil público `javertt` destaca o [HelpDesk TI](https://helpdesk-ti-web.samy-vgomes.workers.dev) em uma seção de projetos. O cartão oferece uma [demonstração interativa](https://helpdesk-ti-web.samy-vgomes.workers.dev/login?demo=1) com dados fictícios locais e acesso ao sistema online conectado à API e ao Supabase. O HelpDesk oferece um link de volta a este perfil. As aplicações mantêm repositórios, deploys e bancos próprios; a integração pública é feita por links entre os sites.
+
 ### Estrutura
 
 ```text
