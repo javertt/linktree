@@ -113,8 +113,8 @@ export function PortfolioProjects() {
           <h2>Tecnologia e inclusão digital</h2>
           <p>
             Atuei como professor voluntário de informática por mais de um ano e
-            ensinei mais de 40 alunos. Conheça os registros das aulas e o que
-            aprendi nessa experiência.
+            ensinei mais de 40 alunos. O curso também tem foco no público idoso.
+            Conheça os registros das aulas e o que aprendi nessa experiência.
           </p>
           <div className="portfolio-project-actions">
             <a
