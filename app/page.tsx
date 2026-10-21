@@ -9,7 +9,7 @@ export default async function Home() {
   const runtimeEnv = process.env;
   if (runtimeEnv.NEXT_PUBLIC_SUPABASE_URL && runtimeEnv.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
     const supabase = createPublicClient();
-    const { data: profile } = await supabase.from("profiles").select("username").order("created_at", { ascending: true }).limit(1).maybeSingle();
+    const { data: profile } = await supabase.from("profiles").select("username").order("created_at", { ascending: true }).order("id", { ascending: true }).limit(1).maybeSingle();
     if (profile?.username) redirect(`/${encodeURIComponent(profile.username)}`);
   }
   return <main className="landing-shell">

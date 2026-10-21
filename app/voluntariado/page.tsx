@@ -24,7 +24,7 @@ export default function VolunteerPage() {
           <HeartHandshake size={25} aria-hidden="true" />
           Professor <span>voluntário</span>
         </Link>
-        <Link className="volunteer-back" href="/javertt">
+        <Link className="volunteer-back" href="/">
           <ArrowLeft size={17} /> Voltar ao portfólio
         </Link>
       </header>
@@ -107,7 +107,7 @@ export default function VolunteerPage() {
 
       <footer className="volunteer-footer">
         <span>Samy Vieira Gomes · Experiência voluntária</span>
-        <Link href="/javertt">
+        <Link href="/">
           Voltar ao portfólio <ArrowUpRight size={18} />
         </Link>
       </footer>

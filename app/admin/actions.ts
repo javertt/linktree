@@ -3,7 +3,7 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { safeTheme } from "@/lib/themes";
-import { safeSocials, safeUrl } from "@/lib/validation";
+import { isValidUsername, safeSocials, safeUrl } from "@/lib/validation";
 import type { EmbedType } from "@/lib/types";
 
 type Result = { error?: string; ok?: true };
@@ -35,7 +35,7 @@ export async function saveProfile(form: FormData): Promise<Result> {
   const { supabase, user } = await owner();
   const username = text(form, "username").toLowerCase();
   const displayName = text(form, "display_name");
-  if (!/^[a-z0-9][a-z0-9_-]{2,29}$/.test(username) || ["admin", "api", "go", "login"].includes(username)) return { error: "Usuário deve ter 3–30 caracteres: letras, números, _ ou -." };
+  if (!isValidUsername(username)) return { error: "Usuário inválido ou reservado. Use 3–30 caracteres: letras, números, _ ou -." };
   if (!displayName || displayName.length > 80) return { error: "Nome deve ter entre 1 e 80 caracteres." };
   const bio = text(form, "bio").slice(0, 280);
   const avatar = text(form, "avatar_url");

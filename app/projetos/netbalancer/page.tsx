@@ -15,7 +15,7 @@ export default function NetBalancerPage() {
       <div className="nb-glow" aria-hidden="true" />
       <nav className="nb-nav" aria-label="Navegação do projeto">
         <Link className="nb-brand" href="/projetos/netbalancer"><span className="nb-brand-mark"><Network size={22} /></span><span>NetBalancer<span className="nb-brand-dot">.</span></span></Link>
-        <Link className="nb-back" href="/javertt"><ArrowLeft size={16} /> Voltar ao portfólio</Link>
+        <Link className="nb-back" href="/"><ArrowLeft size={16} /> Voltar ao portfólio</Link>
       </nav>
 
       <section className="nb-hero">
@@ -45,7 +45,7 @@ export default function NetBalancerPage() {
 
       <section className="nb-details"><div><span className="nb-kicker">02 / POR DENTRO</span><h2>Feito para entender o caminho de cada byte.</h2></div><div className="nb-detail-list"><div><ShieldCheck size={22} /><p><strong>Failover imediato</strong><span>Se a conexão com um destino falhar, o proxy tenta outro backend saudável na mesma conexão.</span></p></div><div><Network size={22} /><p><strong>Proxy bidirecional</strong><span>Duas rotinas copiam os streams em sentidos opostos, respeitando o encerramento independente de cada lado.</span></p></div><div><Activity size={22} /><p><strong>Recuperação automática</strong><span>Após uma sonda bem-sucedida, o backend volta ao pool sem reiniciar o balanceador.</span></p></div></div></section>
 
-      <footer className="nb-footer"><div><span className="nb-kicker">PROJETO DE PORTFÓLIO</span><h2>NetBalancer<span>.</span></h2><p>Python · redes de computadores · observabilidade</p></div><Link href="/javertt">Voltar ao portfólio <ArrowUpRight size={18} /></Link></footer>
+      <footer className="nb-footer"><div><span className="nb-kicker">PROJETO DE PORTFÓLIO</span><h2>NetBalancer<span>.</span></h2><p>Python · redes de computadores · observabilidade</p></div><Link href="/">Voltar ao portfólio <ArrowUpRight size={18} /></Link></footer>
     </main>
   );
 }

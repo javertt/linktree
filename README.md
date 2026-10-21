@@ -14,11 +14,11 @@ Plataforma de links para criadores com estética pop cult. Cada usuário autenti
 
 O Next.js está fixado em `16.3.8` porque o OpenNext `1.20.9` ainda falha em tempo de execução com o manifesto `preview-props.json` introduzido no Next.js 16.4. Atualize os dois juntos após validar a prévia do Worker.
 
-O endereço principal `/` redireciona para o perfil cadastrado no Supabase. O perfil público usa Server Components e consulta o Supabase a cada visita para mostrar dados atualizados sem cache persistente. O painel usa cookies de sessão, middleware para rotas privadas e Server Actions para alterações. `GET /go/{id}` contabiliza o clique antes de redirecionar. `POST /api/view/{username}` registra uma visualização por navegador/perfil a cada 30 minutos. A localização é o código de país informado pela Cloudflare, e o dispositivo é inferido do User-Agent; IPs não são salvos. CTR = cliques ÷ visualizações.
+O endereço principal `/` redireciona para o primeiro perfil cadastrado no Supabase. Esse perfil exibe o portfólio mesmo se o nome de usuário mudar. O perfil público usa Server Components e consulta o Supabase a cada visita para mostrar dados atualizados sem cache persistente. O painel usa cookies de sessão, middleware para rotas privadas e Server Actions para alterações. `GET /go/{id}` contabiliza o clique antes de redirecionar. `POST /api/view/{username}` registra uma visualização por navegador/perfil a cada 30 minutos. A localização é o código de país informado pela Cloudflare, e o dispositivo é inferido do User-Agent; IPs não são salvos. A taxa de clique usa apenas cliques nos links cadastrados no painel; os cards fixos de projetos e voluntariado não entram nessa métrica.
 
 ### Portfólio
 
-O perfil público `javertt` destaca o [HelpDesk TI](https://helpdesk-ti-web.samy-vgomes.workers.dev) e o **NetBalancer** em uma seção de projetos. O cartão HelpDesk oferece uma [demonstração interativa](https://helpdesk-ti-web.samy-vgomes.workers.dev/login?demo=1) e acesso ao sistema online. O cartão NetBalancer abre `/projetos/netbalancer`, uma página de estudo de caso com simulação didática de Round-Robin e failover. O serviço TCP Python roda separadamente do Worker do Popcult; a página não se conecta ao serviço local. A integração pública entre os projetos é feita por links.
+O perfil público principal destaca o [HelpDesk TI](https://helpdesk-ti-web.samy-vgomes.workers.dev) e o **NetBalancer** em uma seção de projetos. O cartão HelpDesk oferece uma [demonstração interativa](https://helpdesk-ti-web.samy-vgomes.workers.dev/login?demo=1) e acesso ao sistema online. O cartão NetBalancer abre `/projetos/netbalancer`, uma página de estudo de caso com simulação didática de Round-Robin e failover. O serviço TCP Python roda separadamente do Worker do Popcult; a página não se conecta ao serviço local. A integração pública entre os projetos é feita por links.
 
 Uma seção separada apresenta a experiência voluntária de Samy no Projeto SERPA e leva à [página pública com os registros das aulas](https://linktree.samy-vgomes.workers.dev/voluntariado), hospedada neste projeto. O cartão distingue essa trajetória dos projetos de software. As sete fotos e o material de aula ficam em `public/images/voluntariado/`, em versões WebP para a galeria e a ampliação.
 
@@ -72,7 +72,7 @@ O SQL permite leitura pública de perfis e de links ativos dentro do período ag
 
 1. Crie um repositório GitHub e envie este projeto. Não envie `.env.local`.
 2. No Dashboard Cloudflare, abra **Workers & Pages → Create application → Import a repository**, autorize GitHub e escolha o repositório. Selecione **Workers**.
-3. Confirme que o nome do Worker é `popcult-links`, igual ao campo `name` de `wrangler.jsonc`, ou ajuste esse campo para o nome escolhido.
+3. Confirme que o nome do Worker é `linktree`, igual ao campo `name` de `wrangler.jsonc` e ao endereço publicado.
 4. Em **Settings → Builds**, use **Build command** `npm run build` e **Deploy command** `npx wrangler deploy`. O script `build` gera o artefato OpenNext exigido pelo Worker; `next build` sozinho não é suficiente. Use Node.js 20+ no ambiente de build. A branch de produção deve ser a desejada (por exemplo, `main`).
 5. Em **Settings → Variables and Secrets**, adicione `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` e `NEXT_PUBLIC_SITE_URL` com a URL final do Worker ou domínio personalizado. Como variáveis `NEXT_PUBLIC_*` são incorporadas ao bundle, também as configure no ambiente de **build**, caso o painel as separe entre build e runtime.
 6. Faça o primeiro deploy. Em Supabase **Authentication → URL Configuration**, ajuste **Site URL** para a URL publicada. O projeto usa e-mail/senha, então não exige callback OAuth.
@@ -95,7 +95,7 @@ npm run cf:preview
 - Links com estado ativo, destaque, início/fim agendado e ordenação por arrastar.
 - Players expansíveis de YouTube, Spotify, SoundCloud e Apple Music quando a URL é compatível.
 - Upload de avatar e favicon no Supabase Storage.
-- Visão geral com visualizações, cliques, CTR, evolução diária, links populares, dispositivo e país.
+- Visão geral com visualizações do perfil, cliques nos links cadastrados, taxa correspondente, evolução diária, links populares, dispositivo e país.
 
 ## Notas operacionais
 

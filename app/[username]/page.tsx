@@ -12,8 +12,11 @@ const getProfile = cache(async (username: string) => {
   const supabase = createPublicClient();
   const { data: profile } = await supabase.from("profiles").select("*").eq("username", username).maybeSingle();
   if (!profile) return null;
-  const { data: links } = await supabase.from("links").select("*").eq("user_id", profile.id).order("position", { ascending: true }).order("created_at", { ascending: true });
-  return { profile: profile as Profile, links: (links ?? []) as Link[] };
+  const [{ data: links }, { data: primaryProfile }] = await Promise.all([
+    supabase.from("links").select("*").eq("user_id", profile.id).order("position", { ascending: true }).order("created_at", { ascending: true }),
+    supabase.from("profiles").select("id").order("created_at", { ascending: true }).order("id", { ascending: true }).limit(1).maybeSingle(),
+  ]);
+  return { profile: profile as Profile, links: (links ?? []) as Link[], showPortfolio: profile.id === primaryProfile?.id };
 });
 
 export async function generateMetadata({ params }: { params: Promise<{ username: string }> }): Promise<Metadata> {
@@ -27,5 +30,5 @@ export default async function ProfilePage({ params }: { params: Promise<{ userna
   const { username } = await params;
   const result = await getProfile(username);
   if (!result) notFound();
-  return <PublicProfile profile={result.profile} links={result.links} />;
+  return <PublicProfile profile={result.profile} links={result.links} showPortfolio={result.showPortfolio} />;
 }

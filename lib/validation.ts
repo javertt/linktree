@@ -1,5 +1,11 @@
 import type { EmbedType, Social } from "@/lib/types";
 
+const reservedUsernames = new Set(["admin", "api", "go", "login", "projetos", "voluntariado"]);
+
+export function isValidUsername(username: string): boolean {
+  return /^[a-z0-9][a-z0-9_-]{2,29}$/.test(username) && !reservedUsernames.has(username);
+}
+
 export function safeUrl(value: string): string | null {
   try {
     const url = new URL(value.trim());
