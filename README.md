@@ -18,7 +18,7 @@ O endereço principal `/` redireciona para o perfil cadastrado no Supabase. O pe
 
 O perfil público `javertt` destaca o [HelpDesk TI](https://helpdesk-ti-web.samy-vgomes.workers.dev) e o **NetBalancer** em uma seção de projetos. O cartão HelpDesk oferece uma [demonstração interativa](https://helpdesk-ti-web.samy-vgomes.workers.dev/login?demo=1) e acesso ao sistema online. O cartão NetBalancer abre `/projetos/netbalancer`, uma página de estudo de caso com simulação didática de Round-Robin e failover. O serviço TCP Python roda separadamente do Worker do Popcult; a página não se conecta ao serviço local. A integração pública entre os projetos é feita por links.
 
-Uma seção separada apresenta a experiência voluntária de Samy no Projeto SERPA e leva à [página pública com os registros das aulas](https://helpdesk-ti-web.samy-vgomes.workers.dev/voluntariado) no HelpDesk TI. O cartão distingue essa trajetória dos projetos de software.
+Uma seção separada apresenta a experiência voluntária de Samy no Projeto SERPA e leva à [página pública com os registros das aulas](https://linktree.samy-vgomes.workers.dev/voluntariado), hospedada neste projeto. O cartão distingue essa trajetória dos projetos de software. As sete fotos e o material de aula ficam em `public/images/voluntariado/`, em versões WebP para a galeria e a ampliação.
 
 ### Estrutura
 

@@ -117,14 +117,9 @@ export function PortfolioProjects() {
             Conheça os registros das aulas e o que aprendi nessa experiência.
           </p>
           <div className="portfolio-project-actions">
-            <a
-              className="portfolio-project-primary"
-              href="https://helpdesk-ti-web.samy-vgomes.workers.dev/voluntariado"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <Link className="portfolio-project-primary" href="/voluntariado">
               Ver experiência e fotos <ArrowUpRight size={17} />
-            </a>
+            </Link>
           </div>
         </article>
       </section>
