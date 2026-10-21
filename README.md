@@ -6,11 +6,13 @@ Plataforma de links para criadores com estética pop cult. Cada usuário autenti
 
 | Camada | Tecnologia | Papel |
 | --- | --- | --- |
-| Interface | Next.js 15 (App Router), React 19, TypeScript, Tailwind CSS | Páginas públicas e painel |
+| Interface | Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS | Páginas públicas e painel |
 | Interação | Framer Motion, Lucide React, dnd-kit | Animações, ícones e ordenação |
 | Dados e login | Supabase PostgreSQL, Auth, Storage, RLS | Persistência, login e políticas por usuário |
 | Hospedagem | Cloudflare Workers, OpenNext | Execução full stack sem R2 ou Durable Objects |
 | CI/CD | Cloudflare Workers Builds + GitHub | Deploy a cada push na branch de produção |
+
+O Next.js está fixado em `16.3.8` porque o OpenNext `1.20.9` ainda falha em tempo de execução com o manifesto `preview-props.json` introduzido no Next.js 16.4. Atualize os dois juntos após validar a prévia do Worker.
 
 O endereço principal `/` redireciona para o perfil cadastrado no Supabase. O perfil público usa Server Components e consulta o Supabase a cada visita para mostrar dados atualizados sem cache persistente. O painel usa cookies de sessão, middleware para rotas privadas e Server Actions para alterações. `GET /go/{id}` contabiliza o clique antes de redirecionar. `POST /api/view/{username}` registra uma visualização por navegador/perfil a cada 30 minutos. A localização é o código de país informado pela Cloudflare, e o dispositivo é inferido do User-Agent; IPs não são salvos. CTR = cliques ÷ visualizações.
 
