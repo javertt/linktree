@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowUpRight,
   HeartHandshake,
@@ -20,7 +21,7 @@ export function PortfolioProjects() {
       >
         <div className="section-label">
           <span id="portfolio-heading">PROJETOS</span>
-          <span>02 EM DESTAQUE</span>
+          <span>03 EM DESTAQUE</span>
         </div>
         <article className="portfolio-project-card">
           <div className="portfolio-project-head">
@@ -91,6 +92,29 @@ export function PortfolioProjects() {
               href="/projetos/netbalancer"
             >
               Explorar projeto <ArrowUpRight size={17} />
+            </Link>
+          </div>
+        </article>
+        <article className="portfolio-project-card portfolio-project-portal">
+          <div className="portfolio-project-head">
+            <span className="portfolio-project-icon" aria-hidden="true">
+              <Image src="/images/portal-data/portal.svg" alt="" width={30} height={30} />
+            </span>
+            <span className="portfolio-project-kicker">ROLL20 · EXTENSÃO BETA</span>
+          </div>
+          <h2><Link href="/projetos/portal-data">Portal Data</Link></h2>
+          <p>
+            Cole o texto de uma ficha de RPG e preencha campos no Roll20.
+            Feito para Tormenta20, com armas, dano, macros e GIFs opcionais.
+          </p>
+          <div className="portfolio-project-stack" aria-label="Tecnologias do projeto">
+            <span>JavaScript</span>
+            <span>Extensão MV3</span>
+            <span>Roll20</span>
+          </div>
+          <div className="portfolio-project-actions">
+            <Link className="portfolio-project-primary" href="/projetos/portal-data">
+              Conhecer e baixar <ArrowUpRight size={17} />
             </Link>
           </div>
         </article>

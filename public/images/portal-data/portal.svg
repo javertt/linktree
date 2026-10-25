@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Portal Data, vórtice mágico circular">
+  <circle cx="64" cy="64" r="61" fill="#111126"/>
+  <circle cx="64" cy="64" r="56" fill="#ee956e"/>
+  <circle cx="64" cy="64" r="50" fill="#914682"/>
+  <circle cx="64" cy="64" r="44" fill="#171631"/>
+  <circle cx="64" cy="64" r="39" fill="#362657"/>
+  <path d="M63 25 C88 23 103 40 102 62 C102 85 83 101 61 101 C38 101 26 84 28 65 C30 47 46 35 63 38 C81 40 90 54 85 69 C81 83 67 89 55 82 C44 76 44 62 54 55 C63 48 75 53 75 63 C75 71 68 74 63 69" fill="none" stroke="#10162e" stroke-width="17" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M63 25 C88 23 103 40 102 62 C102 85 83 101 61 101 C38 101 26 84 28 65 C30 47 46 35 63 38 C81 40 90 54 85 69 C81 83 67 89 55 82 C44 76 44 62 54 55 C63 48 75 53 75 63 C75 71 68 74 63 69" fill="none" stroke="#6be1d2" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="63" cy="67" r="8" fill="#111126"/>
+  <circle cx="63" cy="67" r="3" fill="#f7c789"/>
+  <path d="M60 9h8v7h-8zM60 112h8v7h-8zM9 60h7v8H9zM112 60h7v8h-7z" fill="#ffd19a"/>
+</svg>

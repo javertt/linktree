@@ -3,7 +3,10 @@
 }
 .portfolio-projects .portfolio-project-card + .portfolio-project-card { margin-top: 14px; }
 .portfolio-project-netbalancer { --profile-accent: #68e2c2; }
+.portfolio-project-portal { --profile-accent: #6be1d2; }
 .portfolio-project-volunteer { --profile-accent: #f5a6bc; }
+.portfolio-project-portal .portfolio-project-icon { background: #111126; border-radius: 50%; }
+.portfolio-project-card h2 a:hover { color: var(--profile-accent); }
 
 .portfolio-project-card {
   padding: 23px;
