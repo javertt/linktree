@@ -85,8 +85,35 @@ export default function PortalDataPage() {
             <li><b>02</b><div><h3>Abra uma ficha no Roll20</h3><p>Entre na sua mesa, abra uma ficha editável e selecione “Ficha Ameaça” quando for importar um monstro do Tormenta20.</p></div></li>
             <li><b>03</b><div><h3>Cole e importe</h3><p>Clique no ícone do Portal Data, cole o texto, escolha “Analisar texto” e depois “Importar na ficha”. Confira os campos e teste o ataque no chat.</p></div></li>
           </ol>
-          <p className="pd-project-how-note"><Copy size={17} /> O arquivo <strong>COMO_USAR.txt</strong> dentro do ZIP explica a instalação também para Chrome e Edge.</p>
+          <div className="pd-project-guide-images" aria-label="Imagens de referência do painel Portal Data">
+            <figure>
+              <Image unoptimized src="/images/portal-data/painel-texto.png" alt="Painel Portal Data com texto de ameaça colado e o botão Analisar texto" width={500} height={540} />
+              <figcaption><b>1. Cole o texto</b><span>O painel identifica uma ficha Tormenta20 aberta.</span></figcaption>
+            </figure>
+            <figure>
+              <Image unoptimized src="/images/portal-data/painel-analisado.png" alt="Painel Portal Data com resumo dos dados e botão Importar na ficha" width={500} height={730} />
+              <figcaption><b>2. Confira o resumo</b><span>Revise os dados e escolha “Importar na ficha”.</span></figcaption>
+            </figure>
+          </div>
+          <p className="pd-project-image-note">Capturas do painel real com texto de exemplo. A ficha de destino foi simulada para ilustrar a interface.</p>
+          <p className="pd-project-how-note"><Copy size={17} /> O ZIP inclui <strong>COMO_USAR.html</strong> com imagens e <strong>COMO_USAR.txt</strong> para leitura simples.</p>
           <p className="pd-project-store-note">Nesta distribuição beta por ZIP, é preciso ativar o modo do desenvolvedor. A instalação direta pelo navegador dependerá de aprovação em uma loja de extensões, como a Opera Add-ons.</p>
+        </section>
+
+        <section className="pd-project-compat" aria-labelledby="pd-project-compat-title">
+          <div className="pd-project-section-intro"><span>03 / COMPATIBILIDADE</span><h2 id="pd-project-compat-title">Onde usar a versão 1.0 Beta</h2><p>O pacote é uma extensão Manifest V3 para navegadores de computador baseados em Chromium. Use uma versão atualizada do navegador, uma mesa do Roll20 aberta e permissão para editar a ficha.</p></div>
+          <div className="pd-project-compat-table-wrap">
+            <table>
+              <thead><tr><th>Navegador</th><th>Sistemas disponíveis</th><th>Validação do Portal Data</th></tr></thead>
+              <tbody>
+                <tr><td>Google Chrome</td><td>Windows 10/11, macOS 13+ e Linux 64 bits nas distribuições suportadas</td><td>Interface conferida no Chrome; importação em Roll20 ainda em validação.</td></tr>
+                <tr><td>Microsoft Edge</td><td>Windows 10/11, macOS e Linux 64 bits nas distribuições suportadas</td><td>Instalação prevista; importação em Roll20 ainda em validação.</td></tr>
+                <tr><td>Opera GX</td><td>Windows, macOS e Linux na edição de computador</td><td>Instalação prevista; importação em Roll20 ainda em validação.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p className="pd-project-compat-note">O ZIP não é uma extensão para Firefox, Safari, Android ou iPhone. O Roll20 recomenda Chrome ou Firefox para o VTT; seu funcionamento no Edge e no Opera GX não é garantido oficialmente pelo Roll20.</p>
+          <p className="pd-project-compat-sources">Fontes: <a href="https://support.google.com/chrome/answer/95346" target="_blank" rel="noreferrer">Google Chrome</a>, <a href="https://learn.microsoft.com/en-us/deployedge/microsoft-edge-supported-operating-systems" target="_blank" rel="noreferrer">Microsoft Edge</a>, <a href="https://www.opera.com/gx/linux" target="_blank" rel="noreferrer">Opera GX</a> e <a href="https://help.roll20.net/hc/en-us/articles/4403128607127-Roll20-System-Recommendations" target="_blank" rel="noreferrer">Roll20</a>.</p>
         </section>
 
         <section className="pd-project-final" aria-labelledby="pd-project-final-title">
