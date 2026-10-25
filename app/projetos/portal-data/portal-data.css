@@ -65,6 +65,10 @@
 .pd-project-feature-grid article > div { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 12px; color: #6be1d2; background: #6be1d218; }
 .pd-project-feature-grid h3 { margin: 22px 0 8px; font-size: 20px; letter-spacing: -.04em; }
 .pd-project-feature-grid p { color: #aeb9cb; font-size: 13px; line-height: 1.7; margin: 0; }
+.pd-project-dnd-note { margin-top: 22px; padding: 20px 24px; border: 1px solid #6be1d23b; border-radius: 14px; background: #6be1d20d; }
+.pd-project-dnd-note strong { color: #d4faf3; font-size: 15px; }
+.pd-project-dnd-note p { max-width: 920px; margin: 8px 0 0; color: #aeb9cb; font-size: 13px; line-height: 1.7; }
+.pd-project-dnd-note a { color: #9fe8dc; text-decoration: underline; text-underline-offset: 3px; }
 
 .pd-project-how ol { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; list-style: none; padding: 0; margin: 38px 0 27px; }
 .pd-project-how li { display: flex; align-items: flex-start; gap: 14px; }

@@ -104,8 +104,9 @@ export function PortfolioProjects() {
           </div>
           <h2><Link href="/projetos/portal-data">Portal Data</Link></h2>
           <p>
-            Cole o texto de uma ficha de RPG e preencha campos no Roll20.
-            Feito para Tormenta20, com armas, dano, macros e GIFs opcionais.
+            Importe fichas de ameaças Tormenta20 a partir de texto, com armas,
+            dano e macros visuais. Também há suporte inicial para campos
+            básicos da ficha D&D 5e 2014 Legacy.
           </p>
           <div className="portfolio-project-stack" aria-label="Tecnologias do projeto">
             <span>JavaScript</span>

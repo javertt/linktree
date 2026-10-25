@@ -18,7 +18,7 @@ const downloadPath = "/downloads/Portal-Data-v1.0-Beta.zip";
 
 export const metadata: Metadata = {
   title: "Portal Data | Popcult Links",
-  description: "Conheça o Portal Data, extensão beta que importa fichas de RPG para o Roll20, com foco em Tormenta20. Baixe o ZIP e siga o guia de instalação.",
+  description: "Portal Data importa fichas de ameaças Tormenta20 para o Roll20 e oferece suporte inicial aos campos básicos da ficha D&D 5e 2014 Legacy. Baixe a extensão beta.",
 };
 
 export default function PortalDataPage() {
@@ -38,7 +38,7 @@ export default function PortalDataPage() {
           <div className="pd-project-copy">
             <span className="pd-project-kicker"><span className="pd-project-kicker-dot" /> EXTENSÃO PARA ROLL20 <b>1.0 BETA</b></span>
             <h1 id="pd-project-title">Da ficha em texto para o <em>Roll20.</em></h1>
-            <p>Cole o bloco de uma ficha de RPG, confira os dados encontrados e importe para a ficha aberta. O Portal Data foi criado com foco em Tormenta20 e ajuda a organizar atributos, vida, itens, ataques e magias.</p>
+            <p>Cole o bloco de uma ficha de RPG, confira os dados encontrados e importe para a ficha aberta. O foco é a criação de ameaças Tormenta20; a ficha de personagem D&D 5e 2014 Legacy também recebe dados básicos.</p>
             <div className="pd-project-actions">
               <a className="pd-project-download" href={downloadPath} download>
                 <Download size={19} /> Baixar Portal Data 1.0 Beta
@@ -75,6 +75,10 @@ export default function PortalDataPage() {
             <article><div><FileText size={23} /></div><h3>Entende o texto</h3><p>Reconhece nome, atributos, pontos de vida, perícias, inventário e ataques em blocos de ameaça Tormenta20.</p></article>
             <article><div><MousePointer2 size={23} /></div><h3>Preenche a ficha</h3><p>Coloca os dados em campos editáveis e cria linhas de itens e armas. Você confere tudo antes de jogar.</p></article>
             <article><div><Sparkles size={23} /></div><h3>Enriquece as rolagens</h3><p>Prepara bônus e dano nos ataques. Também oferece macros para copiar e GIFs opcionais para o chat.</p></article>
+          </div>
+          <div className="pd-project-dnd-note">
+            <strong>D&D 5e 2014 Legacy: suporte inicial</strong>
+            <p>Em uma ficha de personagem desse modelo, o Portal Data reconhece nome, seis atributos, pontos de vida, itens, nomes de ataques e magias separadas por nível. O mapeamento foi conferido no <a href="https://github.com/Roll20/roll20-character-sheets/blob/master/DD5thEditionLegacy/src/html/pc/core.html" target="_blank" rel="noreferrer">código da ficha do Roll20</a> e passou em teste automatizado com DOM simulado. Dano e detalhes dos ataques, fichas de monstro/NPC de D&D e a edição 2024 ainda precisam de mapeamento específico; a importação em uma mesa real segue em validação.</p>
           </div>
         </section>
 
