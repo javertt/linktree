@@ -13,8 +13,9 @@ import {
   Sparkles,
 } from "lucide-react";
 import "./portal-data.css";
+import { DownloadCount } from "./download-count";
 
-const downloadPath = "/downloads/Portal-Data-v1.0.1-Beta.zip";
+const downloadPath = "https://github.com/javertt/linktree/releases/download/portal-data-v1.0.2-beta/Portal-Data-v1.0.2-Beta.zip";
 
 export const metadata: Metadata = {
   title: "Portal Data | Popcult Links",
@@ -36,16 +37,17 @@ export default function PortalDataPage() {
 
         <section className="pd-project-hero" aria-labelledby="pd-project-title">
           <div className="pd-project-copy">
-            <span className="pd-project-kicker"><span className="pd-project-kicker-dot" /> EXTENSÃO PARA ROLL20 <b>1.0.1 BETA</b></span>
+            <span className="pd-project-kicker"><span className="pd-project-kicker-dot" /> EXTENSÃO PARA ROLL20 <b>1.0.2 BETA</b></span>
             <h1 id="pd-project-title">Da ficha em texto para o <em>Roll20.</em></h1>
             <p>Cole o bloco de uma ficha de RPG, confira os dados encontrados e importe para a ficha aberta. O foco é a criação de ameaças Tormenta20; a ficha de personagem D&D 5e 2014 Legacy também recebe dados básicos.</p>
             <div className="pd-project-actions">
-              <a className="pd-project-download" href={downloadPath} download>
-                <Download size={19} /> Baixar Portal Data 1.0.1 Beta
+              <a className="pd-project-download" href={downloadPath}>
+                <Download size={19} /> Baixar Portal Data 1.0.2 Beta
               </a>
               <a className="pd-project-quiet-link" href="#como-usar">Como usar <ArrowDown size={16} /></a>
             </div>
             <p className="pd-project-download-note">ZIP para Opera GX, Chrome e Edge · guia simples incluído · instalação local</p>
+            <DownloadCount />
           </div>
 
           <div className="pd-project-preview" aria-label="Exemplo de texto convertido em ficha">
@@ -105,7 +107,7 @@ export default function PortalDataPage() {
         </section>
 
         <section className="pd-project-compat" aria-labelledby="pd-project-compat-title">
-          <div className="pd-project-section-intro"><span>03 / COMPATIBILIDADE</span><h2 id="pd-project-compat-title">Onde usar a versão 1.0.1 Beta</h2><p>O pacote é uma extensão Manifest V3 para navegadores de computador baseados em Chromium. Use uma versão atualizada do navegador, uma mesa do Roll20 aberta e permissão para editar a ficha.</p></div>
+          <div className="pd-project-section-intro"><span>03 / COMPATIBILIDADE</span><h2 id="pd-project-compat-title">Onde usar a versão 1.0.2 Beta</h2><p>O pacote é uma extensão Manifest V3 para navegadores de computador baseados em Chromium. Use uma versão atualizada do navegador, uma mesa do Roll20 aberta e permissão para editar a ficha.</p></div>
           <div className="pd-project-compat-table-wrap">
             <table>
               <thead><tr><th>Navegador</th><th>Sistemas disponíveis</th><th>Validação do Portal Data</th></tr></thead>
@@ -121,8 +123,8 @@ export default function PortalDataPage() {
         </section>
 
         <section className="pd-project-final" aria-labelledby="pd-project-final-title">
-          <div><span>VERSÃO 1.0.1 BETA</span><h2 id="pd-project-final-title">Pronto para atravessar o portal?</h2><p>Comece com uma cópia da ficha e confirme os valores após importar. Outros sistemas podem precisar de um mapeamento personalizado.</p></div>
-          <a href={downloadPath} download><Download size={19} /> Baixar ZIP <ArrowUpRight size={17} /></a>
+          <div><span>VERSÃO 1.0.2 BETA</span><h2 id="pd-project-final-title">Pronto para atravessar o portal?</h2><p>Comece com uma cópia da ficha e confirme os valores após importar. Outros sistemas podem precisar de um mapeamento personalizado.</p></div>
+          <a href={downloadPath}><Download size={19} /> Baixar ZIP <ArrowUpRight size={17} /></a>
         </section>
 
         <footer className="pd-project-footer"><span>PORTAL DATA · PROJETO INDEPENDENTE PARA ROLL20</span><Link href="/">Voltar ao portfólio <ArrowUpRight size={16} /></Link></footer>

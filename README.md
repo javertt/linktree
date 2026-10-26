@@ -80,6 +80,10 @@ O SQL permite leitura pública de perfis e de links ativos dentro do período ag
 
 O perfil público é renderizado sob demanda. Alterações salvas no Supabase ficam disponíveis na próxima visita, sem esperar revalidação de cache. Cada visita faz leituras ao Supabase e conta para os limites do plano utilizado. Em desenvolvimento, `npm run dev` usa o runtime Next.js; `npm run cf:build` e `npm run cf:preview` verificam o Worker. Esta configuração não requer R2 nem Durable Objects.
 
+### Downloads do Portal Data
+
+A página `/projetos/portal-data` aponta para o ZIP anexado ao GitHub Release da versão. O contador lê o campo público `download_count` dos arquivos `Portal-Data-v*-Beta.zip` nos Releases com tag `portal-data-v*` e soma esses valores. A contagem começou na versão 1.0.2 Beta; os downloads anteriores, servidos diretamente pelo Cloudflare, não têm histórico recuperável neste contador. Para publicar uma nova versão, crie uma tag `portal-data-vX.Y.Z-beta`, anexe o ZIP ao Release e atualize o link da página. Não coloque tokens GitHub no navegador.
+
 ## Comandos úteis
 
 ```bash
