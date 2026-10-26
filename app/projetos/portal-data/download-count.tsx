@@ -38,9 +38,12 @@ export function DownloadCount() {
   }, []);
 
   return (
-    <p className="pd-project-download-count" aria-live="polite">
-      {unavailable ? "Contagem temporariamente indisponível" : count === null ? "Consultando downloads…" : `${count.toLocaleString("pt-BR")} downloads registrados`}
-      <span>Contagem iniciada na versão 1.0.2 Beta.</span>
-    </p>
+    <div className="pd-project-download-count" aria-live="polite">
+      <strong className="pd-project-download-count-number">{count === null ? "—" : count.toLocaleString("pt-BR")}</strong>
+      <div>
+        <span className="pd-project-download-count-label">downloads do Portal Data</span>
+        <small>{unavailable ? "Contagem temporariamente indisponível" : count === null ? "Consultando downloads…" : "Contagem iniciada na versão 1.0.2 Beta"}</small>
+      </div>
+    </div>
   );
 }
